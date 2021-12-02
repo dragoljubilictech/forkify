@@ -479,11 +479,10 @@ const controlRecipes = async function() {
         alert(err);
     }
 };
-[
-    'hashchange',
-    'load'
-].forEach((ev)=>window.addEventListener(ev, controlRecipes)
-);
+const init = function() {
+    _recipeViewDefault.default.addHandlerRender(controlRecipes);
+};
+init();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./model":"1pVJj","./views/recipeView":"82pEw"}],"ciiiV":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -690,6 +689,13 @@ class RecipeView {
       </svg>
     </a>
   </div>`;
+    }
+    addHandlerRender(handler) {
+        [
+            'hashchange',
+            'load'
+        ].forEach((ev)=>window.addEventListener(ev, handler)
+        );
     }
      #generateMarkupIngredient(ing) {
         return `
