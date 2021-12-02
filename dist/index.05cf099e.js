@@ -476,7 +476,7 @@ const controlRecipes = async function() {
         //Rendering recipe
         _recipeViewDefault.default.render(_model.state.recipe);
     } catch (err) {
-        alert(err);
+        _recipeViewDefault.default.renderError();
     }
 };
 const init = function() {
@@ -541,9 +541,9 @@ const loadRecipe = async function(id) {
             cookingTime: recipe.cooking_time,
             ingredients: recipe.ingredients
         };
-        console.log(state.recipe);
     } catch (err) {
         console.error(err);
+        throw err;
     }
 };
 
@@ -593,6 +593,8 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #data;
+    #errorMessage = 'We could not find that recipe. Please try another one!';
+    #message = '';
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -602,16 +604,44 @@ class RecipeView {
      #clear() {
         this.#parentElement.innerHTML = '';
     }
-    renderSpiner = function() {
+    renderSpiner() {
         const markup = `
     <div class="spinner">
             <svg>
               <use href="${_iconsSvgDefault.default}#icon-loader"></use>
             </svg>
           </div>`;
-        this.#parentElement.innerHTML = '';
+        this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-    };
+    }
+    renderError(message = this.#errorMessage) {
+        const markup = `
+    <div class="error">
+            <div>
+              <svg>
+                <use href="${_iconsSvgDefault.default}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>
+    `;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
+    renderMessage(message1 = this.#message) {
+        const markup = `
+    <div class="message">
+            <div>
+              <svg>
+                <use href="${_iconsSvgDefault.default}#icon-smile"></use>
+              </svg>
+            </div>
+            <p>${message1}</p>
+          </div>
+    `;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
      #generateMarkup() {
         return `
     <figure class="recipe__fig">
