@@ -2,6 +2,7 @@ import * as model from './model';
 import recipeView from './views/recipeView';
 import searchView from './views/searchView';
 import resultView from './views/resultView';
+import paginationView from './views/paginationView';
 
 if (module.hot) {
   module.hot.accept();
@@ -37,13 +38,24 @@ const controlSearchResult = async function () {
 
     //Render results
     resultView.render(model.getSearchResultsPage());
+
+    // Render initial page buttons
+    paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);
   }
 };
 
+const controlPagination = function (goToPage) {
+  //Render new result
+  resultView.render(model.getSearchResultsPage(goToPage));
+  //Render new pagination buttons
+  paginationView.render(model.state.search);
+};
+
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResult);
+  paginationView.addHandlerClick(controlPagination);
 };
 init();
