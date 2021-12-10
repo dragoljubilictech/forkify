@@ -63,7 +63,37 @@ body {
     'head head'
     'list recipe';
 
-  @media only screen and (max-width: $bp-large) {
+  // @media only screen and (max-width: $bp-large) {
+  //   max-width: 100%;
+  //   margin: 0;
+  //   border-radius: 0;
+  // }
+
+  @media screen and (max-width: 1920px) {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  @media screen and (max-width: 1600px) {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  @media screen and (max-width: 1440px) {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  @media screen and (max-width: 1366px) {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  @media screen and (max-width: 1280px) {
     max-width: 100%;
     margin: 0;
     border-radius: 0;
